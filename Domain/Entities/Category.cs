@@ -30,10 +30,9 @@ namespace Domain.Entities
             // Rise Event unforchnaly i didnt have time to do that
             return new Category(name); ;
         }
-        public  Category AddProduct(int id, string name, Product product)
+        public  Category AddProduct( Product product)
         {
-            this.Id = id;
-            this.Name = name;
+            
             if(this.Products == null) Products = new HashSet<Product>();
             Products.Add(product);
             return this;
