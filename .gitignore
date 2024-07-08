@@ -1,0 +1,26 @@
+# Ignore build output directories
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Visual Studio Code files
+.vscode/
+
+# Ignore other hidden directories
+.idea/
+.vs/
+
+# Ignore NuGet packages directory
+packages/
+
+# Ignore logs
+*.log
+
+# Ignore temporary files
+*~
