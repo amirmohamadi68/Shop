@@ -5,19 +5,21 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{5F718ED4-49BF-4BC4-8453-F024E2041348}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopApi", "Src\ShopApi\ShopApi.csproj", "{DD285309-2656-4139-AC87-CF25F099191B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopApi", "Src\ShopApi\ShopApi.csproj", "{DD285309-2656-4139-AC87-CF25F099191B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9767FB9A-00C6-41FE-B329-98881DD72E60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopApi.Tests", "Tests\ShopApi.Tests\ShopApi.Tests.csproj", "{CC5F708A-D601-4189-BD59-FC39EAAD94D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopApi.Tests", "Tests\ShopApi.Tests\ShopApi.Tests.csproj", "{CC5F708A-D601-4189-BD59-FC39EAAD94D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{EFB7BAB3-A736-40A2-9883-6B40603C01BC}"
+	ProjectSection(SolutionItems) = preProject
+		ToDo.txt = ToDo.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DD285309-2656-4139-AC87-CF25F099191B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -28,6 +30,9 @@ Global
 		{CC5F708A-D601-4189-BD59-FC39EAAD94D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC5F708A-D601-4189-BD59-FC39EAAD94D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC5F708A-D601-4189-BD59-FC39EAAD94D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DD285309-2656-4139-AC87-CF25F099191B} = {5F718ED4-49BF-4BC4-8453-F024E2041348}

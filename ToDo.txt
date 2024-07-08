@@ -1,0 +1,21 @@
+We are looking to develop a straightforward shop API using .NET 6+ and C#. The API will consist of two tables: "Category" and "Product". Here are the minimum required properties for each table:
+
+Category: Id, name
+Product: Id, name, CategoryId
+Each product must be associated with a category, establishing a one-to-many relationship. The API will provide the following endpoints:
+
+[GET] "/category": Retrieves a list of categories, with the option for pagination and filtering.
+[POST] "/category": Creates a new category. Having an upsert endpoint (a combination of insert and update) is a plus.
+[PUT] "/category": Updates an existing category. Having an upsert endpoint is a plus.
+[GET] "/category/{id}": Retrieves a single category based on its ID.
+[GET] "/product": Retrieves a list of products, with the option for pagination and filtering.
+[POST] "/product": Creates a new product. Having an upsert endpoint is a plus.
+[PUT] "/product": Updates an existing product. Having an upsert endpoint is a plus.
+[GET] "/product/{id}": Retrieves a single product based on its ID.
+Using git with a clean commit tree is a must. To earn additional points, consider implementing the following: (optional)
+
+Use SQL Server as the write database and memory cache as the read database, following the CQRS pattern.
+Implement clean architecture and the mediator pattern (refer to https://github.com/jasontaylordev/CleanArchitecture).
+Add an authentication system using Identity and JWT (JSON Web Tokens).
+Implement authorization, allowing only users with the Admin role to access write endpoints (insert and update).
+Write integration or unit tests for the API.
