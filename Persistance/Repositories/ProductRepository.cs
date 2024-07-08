@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopApi.TemporaryForTDD.Context;
-using ShopApi.TemporaryForTDD.Models;
+﻿
+using Domain.Entities.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Persistance.Context;
 
-namespace ShopApi.TemporaryForTDD.Services
+namespace Persistance.Repositories
 {
     public class ProductRepository : IProductRepository
     {
@@ -13,24 +14,24 @@ namespace ShopApi.TemporaryForTDD.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Domain.Entities.Product>> GetProductsAsync()
         {
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<Domain.Entities.Product> GetProductByIdAsync(int id)
         {
             return await _context.Products.FindAsync(id);
         }
 
-        public async Task<Product> CreateProductAsync(Product product)
+        public async Task<Domain.Entities.Product> CreateProductAsync(Domain.Entities.Product product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
             return product;
         }
 
-        public async Task<Product> UpdateProductAsync(Product product)
+        public async Task<Domain.Entities.Product> UpdateProductAsync(Domain.Entities.Product product)
         {
             _context.Products.Update(product);
             await _context.SaveChangesAsync();

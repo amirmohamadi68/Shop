@@ -1,6 +1,6 @@
-﻿using Moq;
-using ShopApi.TemporaryForTDD.Models;
-using ShopApi.TemporaryForTDD.Services;
+﻿using Application.Product.Service;
+using Domain.Entities.Interfaces;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,12 +54,12 @@ namespace ShopApi.Tests
         }
 
 
-        private IEnumerable<Product> GetTestProducts()
+        private IEnumerable<Domain.Entities.Product> GetTestProducts()
         {
-            return new List<Product>
+            return new List<Domain.Entities.Product>
             {
-                new Product { Id = 1, Name = "Product 1", CategoryId = 1 },
-                new Product { Id = 2, Name = "Product 2", CategoryId = 2 }
+                new Domain.Entities.Product { Id = 1, Name = "Product 1", CategoryId = 1 },
+                new Domain.Entities.Product { Id = 2, Name = "Product 2", CategoryId = 2 }
             };
         }
     }

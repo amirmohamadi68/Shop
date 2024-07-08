@@ -9,6 +9,7 @@ namespace Domain.Entities
 {
     public record Category
     {
+        protected Category() { }
         private Category(string name, ICollection<Product> products)
         {
             Name = name;
@@ -30,12 +31,22 @@ namespace Domain.Entities
             // Rise Event unforchnaly i didnt have time to do that
             return new Category(name); ;
         }
+        public static Category Create(string name , int Id)
+        {
+            // Rise Event unforchnaly i didnt have time to do that
+            return new Category(name , Id); ;
+        }
         public  Category AddProduct( Product product)
         {
             
             if(this.Products == null) Products = new HashSet<Product>();
             Products.Add(product);
             return this;
+        }
+        public Category(string name, int Id)
+        {
+                this.Name = name;
+            this.Id = Id;
         }
     }
 }

@@ -8,21 +8,21 @@ namespace Domain.Core
 {
     public record Response<T>
     {
-        public T Data { get; private set; }
-        public string Message { get; private set; }
+        public T Data { get;  set; }
+        public string Message { get;  set; }
         public static Response<T> Create(T data , string message)
         { 
             return new Response<T>(data , message);
            
         }
         private Response(T data, string message) {
-            this.Data = Data;
-            this.Message = Message;
+            this.Data = data;
+            this.Message = message;
         }
     }
     public record Response
     {
-        public string Message { get; private set; }
+        public string Message { get;  set; }
         public static Response Create( string message)
         {
             return new Response( message);
@@ -30,7 +30,7 @@ namespace Domain.Core
         }
         private Response( string message)
         {
-            this.Message = Message;
+            this.Message = message;
         }
     }
 }

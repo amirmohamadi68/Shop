@@ -1,7 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopApi.TemporaryForTDD.Models;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ShopApi.TemporaryForTDD.Context
+namespace Persistance.Context
 {
     public class ShopDbContext : DbContext
     {
@@ -21,6 +26,13 @@ namespace ShopApi.TemporaryForTDD.Context
                 .HasMany(c => c.Products)
                 .WithOne(p => p.Category)
                 .HasForeignKey(p => p.CategoryId);
+            modelBuilder.Entity<Category>().HasData(
+
+                Category.Create("Electronic", 1));
+
+            modelBuilder.Entity<Product>().HasData(
+                Product.Create("Mobile", 1 , 1)
+                );
         }
     }
 }

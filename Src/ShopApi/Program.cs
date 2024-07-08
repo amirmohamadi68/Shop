@@ -2,9 +2,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ShopApi.TemporaryForTDD.Models;
-using ShopApi.TemporaryForTDD.Services;
-using ShopApi.TemporaryForTDD.Context;
+using ShopApi;
+using Application;
+using Persistance;
+using Persistance.Context;
 namespace Shop;
 public class Program
 {
@@ -15,10 +16,8 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllers();
-        builder.Services.AddScoped<ICategoryService, CategoryService>();
-        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-        builder.Services.AddScoped<IProductService, ProductService>();
-        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddApplicationLayer();
+        builder.Services.AddPersistenceLayer();
 
         // Configure DbContext with SQL Server
         builder.Services.AddDbContext<ShopDbContext>(options =>
@@ -60,6 +59,7 @@ public class Program
        // app.UseAuthentication();
         app.UseAuthorization();
 
+        app.UseRouting();
         app.MapControllers();
 
         app.Run();

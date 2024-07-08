@@ -44,5 +44,11 @@ namespace Application.Categories.Service
         {
             return await _categoryRepository.DeleteCategoryAsync(id);
         }
+
+        public async Task<Domain.Entities.Category> GetCategoryByNameAsync(string name)
+        {
+            var notimeForPerformance = await _categoryRepository.GetAllCategoriesAsync(0, 100);
+            return notimeForPerformance.Where(c => c.Name == name).FirstOrDefault();
+        }
     }
 }

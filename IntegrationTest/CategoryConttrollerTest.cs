@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Application.Categories.Dto;
+using Domain.Entities;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Persistance.Context;
 using ShopApi.Controllers;
-using ShopApi.TemporaryForTDD.Context;
-using ShopApi.TemporaryForTDD.Models;
+
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -72,7 +74,7 @@ namespace IntegrationTest
         {
             // Arrange
 
-            var category = new Category { Name = "category1" };
+            var category = new CategoryDto { Name = "category1" };
             var content = new StringContent(JsonSerializer.Serialize(category), Encoding.UTF8, "application/json");
 
             // Act

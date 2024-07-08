@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Application.Categories.Commands;
+using Application.Categories.Dto;
+using Application.Categories.Query;
+using Application.Product.Query;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ShopApi.TemporaryForTDD.Models;
-using ShopApi.TemporaryForTDD.Services;
 
 namespace ShopApi.Controllers
 {
@@ -10,25 +13,27 @@ namespace ShopApi.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryService _categoryService;
+        private readonly IMediator mediator;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(IMediator mediator)
         {
-            _categoryService = categoryService;
+            this.mediator = mediator;
         }
 
+
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories(int pageNumber = 1, int pageSize = 10)
+        public async Task<ActionResult<IEnumerable<Domain.Entities.Category>>> GetCategories(int pageNumber = 1, int pageSize = 10)
         {
-            var categories = await _categoryService.GetAllCategoriesAsync(pageNumber, pageSize);
+            var categories = await mediator.Send(new GetAllCategoryQuery() { PageNumber = pageNumber , PageSize = pageSize});
             return Ok(categories);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<Domain.Entities.Category>> GetCategory(int id)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
-            if (category == null)
+            var category = await mediator.Send(new GetCategoryByIdQuery() { Id = id });
+            if (category.Data == null)
             {
                 return NotFound();
             }
@@ -36,17 +41,17 @@ namespace ShopApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Category>> CreateCategory(Category category)
+        public async Task<ActionResult<Domain.Entities.Category>> CreateCategory(CategoryDto category)
         {
-            var createdCategory = await _categoryService.CreateCategoryAsync(category);
-            return CreatedAtAction(nameof(GetCategory), new { id = createdCategory.Id }, createdCategory);
+            var createdCategory = await mediator.Send(new CreateCategoryCommand() { CategoryDto = category });
+            return CreatedAtAction(nameof(GetCategory), new { id = createdCategory.Data.Id }, createdCategory);
         }
 
         [HttpPut]
-        public async Task<ActionResult<Category>> UpdateCategory(Category category)
+        public async Task<ActionResult<Domain.Entities.Category>> UpdateCategory(CategoryDto category)
         {
-            var updatedCategory = await _categoryService.UpdateCategoryAsync(category);
-            if (updatedCategory == null)
+            var updatedCategory = await mediator.Send(new UpdateCategoryCommand() { CategoryDto = category });
+            if (updatedCategory.Data == null)
             {
                 return NotFound();
             }
@@ -54,20 +59,20 @@ namespace ShopApi.Controllers
         }
 
         [HttpPost("upsert")]
-        public async Task<ActionResult<Category>> UpsertCategory(Category category)
+        public async Task<ActionResult<Domain.Entities.Category>> UpsertCategory(CategoryDto category)
         {
-            var upsertedCategory = await _categoryService.UpsertCategoryAsync(category);
+            var upsertedCategory = await mediator.Send(new UpsertCategoryCommand() { CategoryDto = category }); 
             return Ok(upsertedCategory);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var result = await _categoryService.DeleteCategoryAsync(id);
-            if (!result)
-            {
-                return NotFound();
-            }
+            //var result = await _categoryService.DeleteCategoryAsync(id);
+            //if (!result)
+            //{
+            //    return NotFound();
+            //}
             return NoContent();
         }
     }

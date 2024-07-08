@@ -1,4 +1,4 @@
-﻿namespace ShopApi.TemporaryForTDD.Models
+﻿namespace ShopApi
 {
     public class JwtSettings
     {

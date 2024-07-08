@@ -10,6 +10,6 @@ namespace Application.Categories.Dto
     public class CategoryDto
     {
         public string Name { get; set; }
-        public ICollection<Product>? product {get ; set; }
+        public ICollection<Domain.Entities.Product>? product {get ; set; }
     }
 }

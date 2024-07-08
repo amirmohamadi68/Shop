@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopApi.TemporaryForTDD.Context;
-using ShopApi.TemporaryForTDD.Models;
+﻿
+using Domain.Entities;
+using Domain.Entities.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Persistance.Context;
 
-namespace ShopApi.TemporaryForTDD.Services
+namespace Persistance.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {

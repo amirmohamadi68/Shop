@@ -1,6 +1,8 @@
-﻿using ShopApi.TemporaryForTDD.Models;
+﻿
 
-namespace ShopApi.TemporaryForTDD.Services
+using Domain.Entities.Interfaces;
+
+namespace Application.Product.Service
 {
     public class ProductService : IProductService
     {
@@ -11,28 +13,24 @@ namespace ShopApi.TemporaryForTDD.Services
             _productRepository = productRepository;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Domain.Entities.Product>> GetProductsAsync()
         {
             return await _productRepository.GetProductsAsync();
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<Domain.Entities.Product> GetProductByIdAsync(int id)
         {
             return await _productRepository.GetProductByIdAsync(id);
         }
 
-        public async Task<Product> CreateProductAsync(ProductDto productDto)
+        public async Task<Domain.Entities.Product> CreateProductAsync(Domain.Entities.Product productDto)
         {
-            var product = new Product
-            {
-                Name = productDto.Name,
-                CategoryId = productDto.CategoryId
-            };
-
-            return await _productRepository.CreateProductAsync(product);
+           // var product = Domain.Entities.Product.Create(productDto.Name, productDto.CategoryId);
+           
+            return await _productRepository.CreateProductAsync(productDto);
         }
 
-        public async Task<Product> UpdateProductAsync(int id, ProductDto productDto)
+        public async Task<Domain.Entities.Product> UpdateProductAsync(int id, Domain.Entities.Product productDto)
         {
             var existingProduct = await _productRepository.GetProductByIdAsync(id);
 

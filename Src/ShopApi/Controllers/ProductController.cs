@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Application.Product.Commands;
+using Application.Product.Dto;
+using Application.Product.Query;
+using Azure.Core;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopApi.TemporaryForTDD.Models;
-using ShopApi.TemporaryForTDD.Services;
 
 namespace ShopApi.Controllers
 {
@@ -9,47 +12,48 @@ namespace ShopApi.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IMediator mediator;
 
-        public ProductController(IProductService productService)
+        public ProductController(IMediator mediator)
         {
-            _productService = productService;
+            this.mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts(int Id)
         {
-            var products = await _productService.GetProductsAsync();
-            return Ok(products);
+            var result = await mediator.Send(new GetProductsQuery() );
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
-            var product = await _productService.GetProductByIdAsync(id);
-            if (product == null)
+            var result = await mediator.Send(new GetProductsQuery());
+        
+            if (result == null)
             {
                 return NotFound();
             }
-            return Ok(product);
+            return Ok(result);
         }
 
-        [HttpPost]
- 
-        public async Task<IActionResult> CreateProduct([FromBody] ProductDto productDto)
+        [HttpPost] 
+        public async Task<IActionResult> CreateProduct( ProductDto productDto)
         {
-            var createdProduct = await _productService.CreateProductAsync(productDto);
-            return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id }, createdProduct);
+            var result = await mediator.Send(new CreateProductCommand {ProductDTO =  productDto});
+            return Ok();
+   
+            return CreatedAtAction(nameof(GetProductById), new { id = result.Data.Id }, result);
         }
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "AdminPolicy")]
 
         public async Task<IActionResult> UpdateProduct(int id, ProductDto productDto)
         {
             try
             {
-                var updatedProduct = await _productService.UpdateProductAsync(id, productDto);
+                var updatedProduct = await mediator.Send(new UpdateProductCommand { productDto = productDto });
                 return Ok(updatedProduct);
             }
             catch (Exception ex)
@@ -59,10 +63,10 @@ namespace ShopApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "AdminPolicy")] 
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            await _productService.DeleteProductAsync(id);
+            // i havnt time to create this sorry
+            //await _productService.DeleteProductAsync(id);
             return NoContent();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Application.Categories.Dto;
 using Application.Category.Service;
 using Domain.Core;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Application.Categories.Commands
             public async Task<Response<Domain.Entities.Category>> Handle(UpsertCategoryCommand request, CancellationToken cancellationToken)
             {
                 //Mapping CategoryDto to Category
+               
                 var CategoryUpsert = Domain.Entities.Category.Create(request.CategoryDto.Name, request.CategoryDto.product);
                 var result = await _categoryService.UpsertCategoryAsync(CategoryUpsert);
                 var response = Response<Domain.Entities.Category>.Create(result, "Custome message");

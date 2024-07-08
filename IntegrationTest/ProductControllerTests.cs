@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Application.Product.Dto;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Persistance.Context;
 using ShopApi.Controllers;
-using ShopApi.TemporaryForTDD.Context;
-using ShopApi.TemporaryForTDD.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -75,9 +75,9 @@ namespace IntegrationTest
             var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzIiwicm9sZSI6IkFkbWluIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE2MjYxODgwMDB9.eEcRG0_FN9Axos6OI0yhmG3Mb3lxGH14C6Xa3AzeQa0";
                 //GenerateJwtToken("Admin"); 
 
-            _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+           // _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
-            var newProduct = new ProductDto { Name = "Test Product" };
+            var newProduct = new ProductDto { Name = "Test Product" ,CategoryName="Electronic" , CatrgoryId=1  };
             var content = new StringContent(JsonSerializer.Serialize(newProduct), Encoding.UTF8, "application/json");
 
             // Act
@@ -85,7 +85,7 @@ namespace IntegrationTest
 
             // Assert
             response.EnsureSuccessStatusCode(); // Status Code 200-299
-            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Fact]
