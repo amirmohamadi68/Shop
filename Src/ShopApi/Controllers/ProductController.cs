@@ -35,8 +35,8 @@ namespace ShopApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "AdminPolicy")] 
-        public async Task<IActionResult> CreateProduct(ProductDto productDto)
+ 
+        public async Task<IActionResult> CreateProduct([FromBody] ProductDto productDto)
         {
             var createdProduct = await _productService.CreateProductAsync(productDto);
             return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id }, createdProduct);
